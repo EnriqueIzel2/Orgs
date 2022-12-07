@@ -42,6 +42,7 @@
         app:layout_constraintEnd_toStartOf="@id/produto_item_nome"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cesta"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
