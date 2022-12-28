@@ -31,9 +31,9 @@ class FormularioProdutoActivity : AppCompatActivity() {
   }
 
   private fun criaProduto(): Produto {
-    val campoNome = binding.editNome
-    val campoDescricao = binding.editDescricao
-    val campoValor = binding.editValor
+    val campoNome = binding.activityFormularioProdutoNome
+    val campoDescricao = binding.activityFormularioProdutoDescricao
+    val campoValor = binding.activityFormularioProdutoValor
 
     val nome = campoNome.text.toString()
     val descricao = campoDescricao.text.toString()
