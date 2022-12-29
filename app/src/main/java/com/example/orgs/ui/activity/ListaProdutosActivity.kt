@@ -2,6 +2,7 @@ package com.example.orgs.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orgs.dao.ProdutosDao
@@ -22,6 +23,12 @@ class ListaProdutosActivity : AppCompatActivity() {
 
     configuraRecyclerView()
     configuraFab()
+
+    AlertDialog.Builder(this)
+      .setTitle("Teste")
+      .setMessage("Teste Message")
+      .setPositiveButton("Confirmar") { _, _ -> }
+      .setNegativeButton("Cancelar") { _, _ -> }
   }
 
   override fun onResume() {
