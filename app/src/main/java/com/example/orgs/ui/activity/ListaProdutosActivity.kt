@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.orgs.R
 import com.example.orgs.dao.ProdutosDao
 import com.example.orgs.databinding.ActivityListaProdutosBinding
 import com.example.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
@@ -26,6 +27,7 @@ class ListaProdutosActivity : AppCompatActivity() {
 
     AlertDialog.Builder(this)
       .setTitle("Teste")
+      .setView(R.layout.formulario_imagem)
       .setMessage("Teste Message")
       .setPositiveButton("Confirmar") { _, _ -> }
       .setNegativeButton("Cancelar") { _, _ -> }
