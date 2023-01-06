@@ -1,9 +1,13 @@
 package com.example.orgs.ui.recyclerview.adapter
 
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.ImageLoader
+import coil.decode.GifDecoder
+import coil.decode.ImageDecoderDecoder
 import coil.load
 import com.example.orgs.databinding.ProdutoItemBinding
 import com.example.orgs.model.Produto
@@ -24,12 +28,20 @@ class ListaProdutosAdapter(
     private val valor = binding.produtoItemValor
     private val imagem = binding.imageView
 
-    fun vincula(produto: Produto) {
+    fun vincula(produto: Produto, context: Context) {
+      val imageLoader = ImageLoader.Builder(context)
+        .components {
+          if (Build.VERSION.SDK_INT >= 28) {
+            add(ImageDecoderDecoder.Factory())
+          } else {
+            add(GifDecoder.Factory())
+          }
+        }.build()
       nome.text = produto.nome
       descricao.text = produto.descricao
       val valorEmMoeda: String = formataParaMoedaBrasileira(produto.valor)
       valor.text = valorEmMoeda
-      imagem.load(produto.imagem)
+      imagem.load(produto.imagem, imageLoader)
     }
 
     private fun formataParaMoedaBrasileira(valor: BigDecimal): String {
@@ -51,7 +63,7 @@ class ListaProdutosAdapter(
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     val produto = produtos[position]
-    holder.vincula(produto)
+    holder.vincula(produto, context)
   }
 
   override fun getItemCount(): Int = produtos.size
