@@ -9,6 +9,7 @@ import coil.ImageLoader
 import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.load
+import com.example.orgs.R
 import com.example.orgs.databinding.ProdutoItemBinding
 import com.example.orgs.model.Produto
 import java.math.BigDecimal
@@ -41,7 +42,10 @@ class ListaProdutosAdapter(
       descricao.text = produto.descricao
       val valorEmMoeda: String = formataParaMoedaBrasileira(produto.valor)
       valor.text = valorEmMoeda
-      imagem.load(produto.imagem, imageLoader)
+      imagem.load(produto.imagem, imageLoader) {
+        fallback(R.drawable.erro)
+        error(R.drawable.erro)
+      }
     }
 
     private fun formataParaMoedaBrasileira(valor: BigDecimal): String {
