@@ -9,25 +9,28 @@ import com.example.orgs.extensions.tentaCarregarImagem
 class FormularioImagemDialog(private val context: Context) {
 
   fun mostra(urlPadrao: String? = null, quandoImagemCarregada: (url: String) -> Unit) {
-    val binding = FormularioImagemBinding.inflate(LayoutInflater.from(context))
 
-    urlPadrao?.let {
-      binding.formularioImagemImageView.tentaCarregarImagem(it)
-      binding.formularioImagemUrl.setText(it)
-    }
+    FormularioImagemBinding.inflate(LayoutInflater.from(context)).apply {
 
-    binding.formularioImagemBotaoCarregar.setOnClickListener {
-      val url = binding.formularioImagemUrl.text.toString()
-      binding.formularioImagemImageView.tentaCarregarImagem(url)
-    }
-
-    AlertDialog.Builder(context)
-      .setView(binding.root)
-      .setPositiveButton("Confirmar") { _, _ ->
-        val url = binding.formularioImagemUrl.text.toString()
-        quandoImagemCarregada(url)
+      urlPadrao?.let {
+        formularioImagemImageView.tentaCarregarImagem(it)
+        formularioImagemUrl.setText(it)
       }
-      .setNegativeButton("Cancelar") { _, _ -> }
-      .show()
+
+      formularioImagemBotaoCarregar.setOnClickListener {
+        val url = formularioImagemUrl.text.toString()
+        formularioImagemImageView.tentaCarregarImagem(url)
+      }
+
+      AlertDialog.Builder(context)
+        .setView(root)
+        .setPositiveButton("Confirmar") { _, _ ->
+          val url = formularioImagemUrl.text.toString()
+          quandoImagemCarregada(url)
+        }
+        .setNegativeButton("Cancelar") { _, _ -> }
+        .show()
+
+    }
   }
 }
