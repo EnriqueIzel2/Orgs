@@ -8,8 +8,14 @@ import com.example.orgs.extensions.tentaCarregarImagem
 
 class FormularioImagemDialog(private val context: Context) {
 
-  fun mostra(quandoImagemCarregada: (url: String) -> Unit) {
+  fun mostra(urlPadrao: String? = null, quandoImagemCarregada: (url: String) -> Unit) {
     val binding = FormularioImagemBinding.inflate(LayoutInflater.from(context))
+
+    urlPadrao?.let {
+      binding.formularioImagemImageView.tentaCarregarImagem(it)
+      binding.formularioImagemUrl.setText(it)
+    }
+
     binding.formularioImagemBotaoCarregar.setOnClickListener {
       val url = binding.formularioImagemUrl.text.toString()
       binding.formularioImagemImageView.tentaCarregarImagem(url)
