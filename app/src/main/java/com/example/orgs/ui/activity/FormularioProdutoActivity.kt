@@ -17,6 +17,7 @@ class FormularioProdutoActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    title = "Cadastrar Produto"
     setContentView(binding.root)
 
     configuraBotaoSalvar()
