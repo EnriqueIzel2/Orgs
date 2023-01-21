@@ -41,8 +41,11 @@ class ListaProdutosActivity : AppCompatActivity() {
   private fun configuraRecyclerView() {
     val recyclerView: RecyclerView = binding.recyclerView
     recyclerView.adapter = adapter
-    adapter.quandoClicaNoItemListener = {
-      Log.i("produto", "na activity")
+    adapter.quandoClicaNoItem = {
+      val intent = Intent(this, DetalhesProdutoActivity::class.java).apply {
+        putExtra("produto", it)
+      }
+      startActivity(intent)
     }
   }
 }
