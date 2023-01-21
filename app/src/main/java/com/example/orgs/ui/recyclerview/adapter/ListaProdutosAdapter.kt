@@ -15,28 +15,30 @@ import java.util.*
 class ListaProdutosAdapter(
   private val context: Context,
   produtos: List<Produto>,
-  var quandoClicaNoItemListener: (produto: Produto) -> Unit = {}
+  var quandoClicaNoItem: (produto: Produto) -> Unit = {}
 ) : RecyclerView.Adapter<ListaProdutosAdapter.ViewHolder>() {
 
   private val produtos = produtos.toMutableList()
 
-  inner class ViewHolder(binding: ProdutoItemBinding) : RecyclerView.ViewHolder(binding.root) {
-    private val nome = binding.produtoItemNome
-    private val descricao = binding.produtoItemDescricao
-    private val valor = binding.produtoItemValor
-    private val imagem = binding.imageView
+  inner class ViewHolder(private val binding: ProdutoItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
     private lateinit var produto: Produto
 
     init {
-      binding.root.setOnClickListener {
-        Log.i("ListaAdapter", "clicando no item")
+      itemView.setOnClickListener {
         if (::produto.isInitialized) {
-          quandoClicaNoItemListener(produto)
+          quandoClicaNoItem(produto)
         }
       }
     }
 
     fun vincula(produto: Produto) {
+      val nome = binding.produtoItemNome
+      val descricao = binding.produtoItemDescricao
+      val valor = binding.produtoItemValor
+      val imagem = binding.imageView
+      
+      this.produto = produto
       nome.text = produto.nome
       descricao.text = produto.descricao
       val valorEmMoeda: String = formataParaMoedaBrasileira(produto.valor)
