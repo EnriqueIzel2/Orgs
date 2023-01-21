@@ -6,4 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.DetalhesProdutoActivity">
 
+    <ImageView
+        android:id="@+id/activity_detalhes_produto_imagem"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/cesta" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/activity_detalhes_produto_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/activity_detalhes_produto_imagem"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_detalhes_produto_imagem">
+
+        <TextView
+            android:id="@+id/activity_detalhes_produto_preco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
+            android:padding="8dp"
+            android:textColor="@color/colorPrimaryVariant"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="R$ 1999,29" />
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
