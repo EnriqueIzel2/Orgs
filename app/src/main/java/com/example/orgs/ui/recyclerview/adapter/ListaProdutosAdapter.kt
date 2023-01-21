@@ -1,6 +1,7 @@
 package com.example.orgs.ui.recyclerview.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -13,16 +14,27 @@ import java.util.*
 
 class ListaProdutosAdapter(
   private val context: Context,
-  produtos: List<Produto>
+  produtos: List<Produto>,
+  var quandoClicaNoItemListener: (produto: Produto) -> Unit = {}
 ) : RecyclerView.Adapter<ListaProdutosAdapter.ViewHolder>() {
 
   private val produtos = produtos.toMutableList()
 
-  class ViewHolder(binding: ProdutoItemBinding) : RecyclerView.ViewHolder(binding.root) {
+  inner class ViewHolder(binding: ProdutoItemBinding) : RecyclerView.ViewHolder(binding.root) {
     private val nome = binding.produtoItemNome
     private val descricao = binding.produtoItemDescricao
     private val valor = binding.produtoItemValor
     private val imagem = binding.imageView
+    private lateinit var produto: Produto
+
+    init {
+      binding.root.setOnClickListener {
+        Log.i("ListaAdapter", "clicando no item")
+        if (::produto.isInitialized) {
+          quandoClicaNoItemListener(produto)
+        }
+      }
+    }
 
     fun vincula(produto: Produto) {
       nome.text = produto.nome

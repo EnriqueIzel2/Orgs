@@ -2,6 +2,7 @@ package com.example.orgs.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orgs.dao.ProdutosDao
@@ -40,5 +41,8 @@ class ListaProdutosActivity : AppCompatActivity() {
   private fun configuraRecyclerView() {
     val recyclerView: RecyclerView = binding.recyclerView
     recyclerView.adapter = adapter
+    adapter.quandoClicaNoItemListener = {
+      Log.i("produto", "na activity")
+    }
   }
 }
