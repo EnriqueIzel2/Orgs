@@ -19,7 +19,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/cesta" />
+            tools:srcCompat="@drawable/cesta"
+            android:contentDescription="@string/contentDescriptionDefault" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/activity_detalhes_produto_card"
