@@ -53,6 +53,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/activity_detalhes_produto_card"
-            tools:text="Um titulo grande" />
+            tools:text="Título" />
+
+        <TextView
+            android:id="@+id/activity_detalhes_produto_descricao"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@id/activity_detalhes_produto_titulo"
+            app:layout_constraintStart_toStartOf="@id/activity_detalhes_produto_titulo"
+            app:layout_constraintTop_toBottomOf="@id/activity_detalhes_produto_titulo"
+            tools:text="@tools:sample/lorem/random" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
