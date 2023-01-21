@@ -31,11 +31,22 @@
             android:id="@+id/activity_detalhes_produto_preco"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="@font/montserrat_bold"
             android:padding="8dp"
             android:textColor="@color/colorPrimaryVariant"
             android:textSize="24sp"
-            android:textStyle="bold"
             tools:text="R$ 1999,29" />
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/activity_detalhes_produto_titulo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_detalhes_produto_card"
+        tools:text="Um titulo grande" />
 </androidx.constraintlayout.widget.ConstraintLayout>
