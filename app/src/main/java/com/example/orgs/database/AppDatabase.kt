@@ -1,4 +1,4 @@
-package com.example.orgs.dao
+package com.example.orgs.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
