@@ -2,17 +2,13 @@ package com.example.orgs.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import com.example.orgs.dao.ProdutosDao
 import com.example.orgs.database.AppDatabase
 import com.example.orgs.databinding.ActivityListaProdutosBinding
-import com.example.orgs.model.Produto
 import com.example.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import java.math.BigDecimal
 
 class ListaProdutosActivity : AppCompatActivity() {
   private val dao = ProdutosDao()
@@ -27,26 +23,14 @@ class ListaProdutosActivity : AppCompatActivity() {
 
     configuraRecyclerView()
     configuraFab()
-
-    val db = Room.databaseBuilder(
-      this,
-      AppDatabase::class.java,
-      "orgs.db"
-    ).allowMainThreadQueries().build()
-
-    val produtoDao = db.produtoDao()
-    produtoDao.salva(
-      Produto(
-        nome = "teste nome 1",
-        descricao = "teste desc 1",
-        valor = BigDecimal("10.51")
-      )
-    )
   }
 
   override fun onResume() {
     super.onResume()
-    adapter.atualiza(dao.buscaTodos())
+    val db = AppDatabase.instancia(this)
+
+    val produtoDao = db.produtoDao()
+    adapter.atualiza(produtoDao.buscarTodos())
   }
 
   private fun configuraFab() {
