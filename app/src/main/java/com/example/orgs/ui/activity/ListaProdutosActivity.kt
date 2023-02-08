@@ -4,15 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.orgs.dao.ProdutosDao
 import com.example.orgs.database.AppDatabase
 import com.example.orgs.databinding.ActivityListaProdutosBinding
 import com.example.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ListaProdutosActivity : AppCompatActivity() {
-  private val dao = ProdutosDao()
-  private val adapter = ListaProdutosAdapter(context = this, produtos = dao.buscaTodos())
+  private val adapter = ListaProdutosAdapter(context = this)
   private val binding by lazy {
     ActivityListaProdutosBinding.inflate(layoutInflater)
   }
