@@ -1,7 +1,6 @@
 package com.example.orgs.ui.recyclerview.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +13,7 @@ import java.util.*
 
 class ListaProdutosAdapter(
   private val context: Context,
-  produtos: List<Produto>,
+  produtos: List<Produto> = emptyList(),
   var quandoClicaNoItem: (produto: Produto) -> Unit = {}
 ) : RecyclerView.Adapter<ListaProdutosAdapter.ViewHolder>() {
 
