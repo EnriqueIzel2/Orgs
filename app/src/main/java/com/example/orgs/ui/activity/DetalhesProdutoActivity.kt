@@ -1,10 +1,9 @@
 package com.example.orgs.ui.activity
 
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import androidx.annotation.RequiresApi
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
+import com.example.orgs.R
 import com.example.orgs.databinding.ActivityDetalhesProdutoBinding
 import com.example.orgs.extensions.formatarMoedaBrasileira
 import com.example.orgs.extensions.tentaCarregarImagem
@@ -21,6 +20,11 @@ class DetalhesProdutoActivity : AppCompatActivity() {
     setContentView(binding.root)
 
     tentaCarregarProduto()
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.detalhes_produto_menu, menu)
+    return super.onCreateOptionsMenu(menu)
   }
 
   private fun tentaCarregarProduto() {
