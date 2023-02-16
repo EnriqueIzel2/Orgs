@@ -2,8 +2,11 @@ package com.example.orgs.ui.recyclerview.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
+import com.example.orgs.R
 import com.example.orgs.databinding.ProdutoItemBinding
 import com.example.orgs.extensions.tentaCarregarImagem
 import com.example.orgs.model.Produto
@@ -14,12 +17,15 @@ import java.util.*
 class ListaProdutosAdapter(
   private val context: Context,
   produtos: List<Produto> = emptyList(),
-  var quandoClicaNoItem: (produto: Produto) -> Unit = {}
+  var quandoClicaNoItem: (produto: Produto) -> Unit = {},
+  var quandoClicaEditar: (produto: Produto) -> Unit = {},
+  var quandoClicaRemover: (produto: Produto) -> Unit = {}
 ) : RecyclerView.Adapter<ListaProdutosAdapter.ViewHolder>() {
 
   private val produtos = produtos.toMutableList()
 
-  inner class ViewHolder(private val binding: ProdutoItemBinding) : RecyclerView.ViewHolder(binding.root) {
+  inner class ViewHolder(private val binding: ProdutoItemBinding) :
+    RecyclerView.ViewHolder(binding.root), PopupMenu.OnMenuItemClickListener {
 
     private lateinit var produto: Produto
 
@@ -29,6 +35,14 @@ class ListaProdutosAdapter(
           quandoClicaNoItem(produto)
         }
       }
+
+      itemView.setOnLongClickListener {
+        PopupMenu(context, itemView).apply {
+          menuInflater.inflate(R.menu.detalhes_produto_menu, menu)
+          setOnMenuItemClickListener(this@ViewHolder)
+        }.show()
+        true
+      }
     }
 
     fun vincula(produto: Produto) {
@@ -36,13 +50,28 @@ class ListaProdutosAdapter(
       val descricao = binding.produtoItemDescricao
       val valor = binding.produtoItemValor
       val imagem = binding.imageView
-      
+
       this.produto = produto
       nome.text = produto.nome
       descricao.text = produto.descricao
       val valorEmMoeda: String = formataParaMoedaBrasileira(produto.valor)
       valor.text = valorEmMoeda
       imagem.tentaCarregarImagem(produto.imagem)
+    }
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+      item?.let {
+        when (it.itemId) {
+          R.id.menu_detalhes_produto_editar -> {
+            quandoClicaEditar(produto)
+          }
+          R.id.menu_detalhes_produto_remover -> {
+            quandoClicaRemover(produto)
+          }
+        }
+      }
+
+      return true
     }
 
     private fun formataParaMoedaBrasileira(valor: BigDecimal): String {
