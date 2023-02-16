@@ -2,6 +2,7 @@ package com.example.orgs.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orgs.database.AppDatabase
@@ -47,6 +48,14 @@ class ListaProdutosActivity : AppCompatActivity() {
         putExtra("produto", it)
       }
       startActivity(intent)
+    }
+
+    adapter.quandoClicaEditar = {
+      Log.i("Clique longo", "configuraRecyclerView: clicou editar")
+    }
+
+    adapter.quandoClicaRemover = {
+      Log.i("Clique longo", "configuraRecyclerView: clicou remover")
     }
   }
 }
