@@ -1,11 +1,12 @@
 package com.example.orgs.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.orgs.R
+import com.example.orgs.database.AppDatabase
 import com.example.orgs.databinding.ActivityDetalhesProdutoBinding
 import com.example.orgs.extensions.formatarMoedaBrasileira
 import com.example.orgs.extensions.tentaCarregarImagem
@@ -15,6 +16,7 @@ private const val TAG = "Detalhes Produto"
 
 class DetalhesProdutoActivity : AppCompatActivity() {
 
+  private lateinit var produto: Produto
   private val binding by lazy {
     ActivityDetalhesProdutoBinding.inflate(layoutInflater)
   }
@@ -32,19 +34,30 @@ class DetalhesProdutoActivity : AppCompatActivity() {
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    when (item.itemId) {
-      R.id.menu_detalhes_produto_remover -> {
-        Log.i(TAG, "onOptionsItemSelected: remover")
-      }
-      R.id.menu_detalhes_produto_editar -> {
-        Log.i(TAG, "onOptionsItemSelected: editar")
+    if (::produto.isInitialized) {
+      val db = AppDatabase.instancia(this)
+      val produtoDao = db.produtoDao()
+
+      when (item.itemId) {
+        R.id.menu_detalhes_produto_remover -> {
+          produtoDao.remove(produto)
+          finish()
+        }
+        R.id.menu_detalhes_produto_editar -> {
+          Intent(this, FormularioProdutoActivity::class.java).apply {
+            putExtra("produto", produto)
+            startActivity(this)
+          }
+        }
       }
     }
+
     return super.onOptionsItemSelected(item)
   }
 
   private fun tentaCarregarProduto() {
     intent.getParcelableExtra<Produto>("produto")?.let { produtoCarregado ->
+      produto = produtoCarregado
       prencheCampos(produtoCarregado)
     } ?: finish()
   }
