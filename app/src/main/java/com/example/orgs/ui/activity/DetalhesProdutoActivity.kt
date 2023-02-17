@@ -12,8 +12,6 @@ import com.example.orgs.extensions.formatarMoedaBrasileira
 import com.example.orgs.extensions.tentaCarregarImagem
 import com.example.orgs.model.Produto
 
-private const val TAG = "Detalhes Produto"
-
 class DetalhesProdutoActivity : AppCompatActivity() {
 
   private var produtoId: Long? = null
