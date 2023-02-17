@@ -11,7 +11,7 @@ import com.example.orgs.model.Produto
 interface ProdutoDao {
 
   @Query("SELECT * FROM produto")
-  fun buscarTodos() : List<Produto>
+  fun buscarTodos(): List<Produto>
 
   @Insert
   fun salva(vararg produto: Produto)
@@ -21,4 +21,7 @@ interface ProdutoDao {
 
   @Update
   fun atualiza(produto: Produto)
+
+  @Query("SELECT * FROM produto WHERE id = :id")
+  fun buscaPorId(id: Long) : Produto?
 }
