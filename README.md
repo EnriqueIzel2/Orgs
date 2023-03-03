@@ -30,6 +30,9 @@
 
 - [x] Listagem de produtos;
 - [x] Cadastro de produtos;
+- [x] Excluir produto
+- [x] Editar produto
+- [x] Salvar dados em um banco de dados local
 
 ---
 
@@ -42,6 +45,7 @@ As seguintes tecnologias foram usadas nesse projeto:
   <li><a href="https://developer.android.com/kotlin/parcelize?hl=pt-br">Parcelize</a></li>
   <li><a href="https://coil-kt.github.io/coil/">Coil</a></li>
   <li><a href="https://coil-kt.github.io/coil/gifs/">Coil Gif</a></li>
+  <li><a href="https://developer.android.com/training/data-storage/room?hl=pt-br">Room</a></li>
 </ul>
 
 ---
