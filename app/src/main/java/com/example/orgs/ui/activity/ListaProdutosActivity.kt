@@ -9,6 +9,7 @@ import com.example.orgs.database.AppDatabase
 import com.example.orgs.databinding.ActivityListaProdutosBinding
 import com.example.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.*
 
 class ListaProdutosActivity : AppCompatActivity() {
   private val adapter = ListaProdutosAdapter(context = this)
@@ -27,9 +28,15 @@ class ListaProdutosActivity : AppCompatActivity() {
   override fun onResume() {
     super.onResume()
     val db = AppDatabase.instancia(this)
-
     val produtoDao = db.produtoDao()
-    adapter.atualiza(produtoDao.buscarTodos())
+    val mainScope = MainScope()
+
+    mainScope.launch {
+      val produtos = withContext(Dispatchers.IO) {
+        produtoDao.buscarTodos()
+      }
+      adapter.atualiza(produtos)
+    }
   }
 
   private fun configuraFab() {
