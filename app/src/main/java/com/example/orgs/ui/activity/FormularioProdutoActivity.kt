@@ -10,6 +10,7 @@ import com.example.orgs.ui.dialog.FormularioImagemDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.math.BigDecimal
 
 class FormularioProdutoActivity : AppCompatActivity() {
@@ -48,7 +49,10 @@ class FormularioProdutoActivity : AppCompatActivity() {
   private fun tentaBuscarProduto() {
     scope.launch {
       produtoDao.buscaPorId(produtoId)?.let {
-        preencheCampos(it)
+        withContext(Dispatchers.Main) {
+          title = "Alterar produto"
+          preencheCampos(it)
+        }
       }
     }
   }
