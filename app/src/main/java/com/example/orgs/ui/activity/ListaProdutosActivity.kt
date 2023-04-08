@@ -36,13 +36,6 @@ class ListaProdutosActivity : AppCompatActivity() {
     super.onResume()
 
     lifecycleScope.launch {
-      repeat(1000) {
-        Log.i(TAG, "onResume: coroutine está em execução $it")
-        delay(1000)
-      }
-    }
-
-    lifecycleScope.launch {
       val produtos = dao.buscarTodos()
       adapter.atualiza(produtos)
     }
