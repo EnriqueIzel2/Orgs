@@ -59,19 +59,20 @@ class DetalhesProdutoActivity : AppCompatActivity() {
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-    when (item.itemId) {
-      R.id.menu_detalhes_produto_remover -> {
-        produto?.let { produtoDao.remove(it) }
-        finish()
-      }
-      R.id.menu_detalhes_produto_editar -> {
-        Intent(this, FormularioProdutoActivity::class.java).apply {
-          putExtra(CHAVE_PRODUTO_ID, produtoId)
-          startActivity(this)
+    scope.launch {
+      when (item.itemId) {
+        R.id.menu_detalhes_produto_remover -> {
+          produto?.let { produtoDao.remove(it) }
+          finish()
+        }
+        R.id.menu_detalhes_produto_editar -> {
+          Intent(this@DetalhesProdutoActivity, FormularioProdutoActivity::class.java).apply {
+            putExtra(CHAVE_PRODUTO_ID, produtoId)
+            startActivity(this)
+          }
         }
       }
     }
-
 
     return super.onOptionsItemSelected(item)
   }
