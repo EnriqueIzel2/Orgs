@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.orgs.R
 import com.example.orgs.database.AppDatabase
 import com.example.orgs.databinding.ActivityDetalhesProdutoBinding
@@ -42,7 +43,7 @@ class DetalhesProdutoActivity : AppCompatActivity() {
   }
 
   private fun buscaProduto() {
-    scope.launch {
+    lifecycleScope.launch {
       produto = produtoDao.buscaPorId(produtoId)
       withContext(Main) {
         produto?.let {
@@ -58,22 +59,20 @@ class DetalhesProdutoActivity : AppCompatActivity() {
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-    scope.launch {
-      when (item.itemId) {
-        R.id.menu_detalhes_produto_remover -> {
+    when (item.itemId) {
+      R.id.menu_detalhes_produto_remover -> {
+        lifecycleScope.launch {
           produto?.let { produtoDao.remove(it) }
           finish()
         }
-        R.id.menu_detalhes_produto_editar -> {
-          Intent(this@DetalhesProdutoActivity, FormularioProdutoActivity::class.java).apply {
-            putExtra(CHAVE_PRODUTO_ID, produtoId)
-            startActivity(this)
-          }
+      }
+      R.id.menu_detalhes_produto_editar -> {
+        Intent(this@DetalhesProdutoActivity, FormularioProdutoActivity::class.java).apply {
+          putExtra(CHAVE_PRODUTO_ID, produtoId)
+          startActivity(this)
         }
       }
     }
-
     return super.onOptionsItemSelected(item)
   }
 

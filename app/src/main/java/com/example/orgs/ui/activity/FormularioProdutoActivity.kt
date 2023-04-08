@@ -2,12 +2,12 @@ package com.example.orgs.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.orgs.database.AppDatabase
 import com.example.orgs.databinding.ActivityFormularioProdutoBinding
 import com.example.orgs.extensions.tentaCarregarImagem
 import com.example.orgs.model.Produto
 import com.example.orgs.ui.dialog.FormularioImagemDialog
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -22,7 +22,6 @@ class FormularioProdutoActivity : AppCompatActivity() {
   }
   private var url: String? = null
   private var produtoId = 0L
-  val scope = CoroutineScope(Dispatchers.IO)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -47,7 +46,7 @@ class FormularioProdutoActivity : AppCompatActivity() {
   }
 
   private fun tentaBuscarProduto() {
-    scope.launch {
+    lifecycleScope.launch {
       produtoDao.buscaPorId(produtoId)?.let {
         withContext(Dispatchers.Main) {
           title = "Alterar produto"
@@ -75,7 +74,7 @@ class FormularioProdutoActivity : AppCompatActivity() {
 
     botaoSalvar.setOnClickListener {
       val produtoNovo = criaProduto()
-      scope.launch {
+      lifecycleScope.launch {
         produtoDao.salva(produtoNovo)
         finish()
       }

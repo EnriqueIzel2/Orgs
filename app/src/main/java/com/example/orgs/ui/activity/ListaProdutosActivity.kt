@@ -10,11 +10,9 @@ import com.example.orgs.database.AppDatabase
 import com.example.orgs.databinding.ActivityListaProdutosBinding
 import com.example.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ListaProdutosActivity : AppCompatActivity() {
-  private val TAG = "ListaProdutosActivity"
   private val adapter = ListaProdutosAdapter(context = this)
   private val binding by lazy {
     ActivityListaProdutosBinding.inflate(layoutInflater)
