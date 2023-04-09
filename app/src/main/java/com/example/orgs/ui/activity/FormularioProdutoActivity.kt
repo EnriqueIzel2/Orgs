@@ -8,9 +8,7 @@ import com.example.orgs.databinding.ActivityFormularioProdutoBinding
 import com.example.orgs.extensions.tentaCarregarImagem
 import com.example.orgs.model.Produto
 import com.example.orgs.ui.dialog.FormularioImagemDialog
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.math.BigDecimal
 
 class FormularioProdutoActivity : AppCompatActivity() {
@@ -38,17 +36,13 @@ class FormularioProdutoActivity : AppCompatActivity() {
     }
 
     tentaCarregarProduto()
-  }
-
-  override fun onResume() {
-    super.onResume()
     tentaBuscarProduto()
   }
 
   private fun tentaBuscarProduto() {
     lifecycleScope.launch {
-      produtoDao.buscaPorId(produtoId)?.let {
-        withContext(Dispatchers.Main) {
+      produtoDao.buscaPorId(produtoId).collect { produto ->
+        produto?.let {
           title = "Alterar produto"
           preencheCampos(it)
         }

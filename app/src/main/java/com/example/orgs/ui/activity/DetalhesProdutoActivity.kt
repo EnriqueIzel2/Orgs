@@ -12,11 +12,7 @@ import com.example.orgs.databinding.ActivityDetalhesProdutoBinding
 import com.example.orgs.extensions.formatarMoedaBrasileira
 import com.example.orgs.extensions.tentaCarregarImagem
 import com.example.orgs.model.Produto
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class DetalhesProdutoActivity : AppCompatActivity() {
 
@@ -28,24 +24,19 @@ class DetalhesProdutoActivity : AppCompatActivity() {
   private val produtoDao by lazy {
     AppDatabase.instancia(this).produtoDao()
   }
-  private val scope = CoroutineScope(Dispatchers.IO)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
 
     tentaCarregarProduto()
-  }
-
-  override fun onResume() {
-    super.onResume()
     buscaProduto()
   }
 
   private fun buscaProduto() {
     lifecycleScope.launch {
-      produto = produtoDao.buscaPorId(produtoId)
-      withContext(Main) {
+      produtoDao.buscaPorId(produtoId).collect { produtoEncontrado ->
+        produto = produtoEncontrado
         produto?.let {
           prencheCampos(it)
         } ?: finish()
