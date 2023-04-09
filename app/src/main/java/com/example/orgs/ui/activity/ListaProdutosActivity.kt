@@ -28,14 +28,11 @@ class ListaProdutosActivity : AppCompatActivity() {
 
     configuraRecyclerView()
     configuraFab()
-  }
-
-  override fun onResume() {
-    super.onResume()
 
     lifecycleScope.launch {
-      val produtos = dao.buscarTodos()
-      adapter.atualiza(produtos)
+      dao.buscarTodos().collect { produtos ->
+        adapter.atualiza(produtos)
+      }
     }
   }
 
