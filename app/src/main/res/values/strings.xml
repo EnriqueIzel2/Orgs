@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">Orgs</string>
     <string name="contentDescriptionDefault">Foto do produto</string>
+
+    <!--  Activity Formulario Cadastro Usuario  -->
+    <string name="cadastroUsuario_textInput_usuario_hint">Usuário</string>
+    <string name="cadastroUsuario_textInput_nome_hint">Nome</string>
+    <string name="cadastroUsuario_textInput_senha_hint">Senha</string>
+    <string name="cadastroUsuario_button_text">Cadastrar</string>
+
+    <!--  Activity Login -->
+    <string name="login_logo_description">orgs logo</string>
+    <string name="login_text_logo">Orgs</string>
+    <string name="login_textInput_usuario_hint">Usuário</string>
+    <string name="login_textInput_senha_hint">Senha</string>
+    <string name="login_buttonEntrar_text">Entrar</string>
+    <string name="login_buttonCadastrar_text">cadastrar usuário</string>
 </resources>
