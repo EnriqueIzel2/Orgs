@@ -2,10 +2,13 @@ package com.example.orgs.ui.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.orgs.database.AppDatabase
 import com.example.orgs.databinding.ActivityFormularioCadastroUsuarioBinding
 import com.example.orgs.model.Usuario
+import kotlinx.coroutines.launch
 
 class FormularioCadastroUsuarioActivity : AppCompatActivity() {
 
@@ -27,7 +30,19 @@ class FormularioCadastroUsuarioActivity : AppCompatActivity() {
     binding.activityFormularioCadastroBotaoCadastrar.setOnClickListener {
       val novoUsuario = criaUsuario()
       Log.i("Cadastro Usuário", "onCreate: $novoUsuario")
-      finish()
+      lifecycleScope.launch {
+        try {
+          dao.salva(novoUsuario)
+          finish()
+        } catch (e: Exception) {
+          Log.e("Cadastro Usuário", "configuraBotaoCadastrar: ", e)
+          Toast.makeText(
+            this@FormularioCadastroUsuarioActivity,
+            "Erro ao salvar",
+            Toast.LENGTH_SHORT
+          ).show()
+        }
+      }
     }
   }
 
