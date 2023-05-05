@@ -16,7 +16,7 @@ import com.example.orgs.model.Usuario
     Produto::class,
     Usuario::class,
   ],
-  version = 1,
+  version = 2,
   exportSchema = true
 )
 @TypeConverters(Converters::class)
@@ -32,7 +32,8 @@ abstract class AppDatabase : RoomDatabase() {
         context,
         AppDatabase::class.java,
         "orgs.db"
-      ).build()
+      ).addMigrations(MIGRATION_1_2)
+        .build()
         .also {
           db = it
         }
