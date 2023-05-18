@@ -34,8 +34,10 @@ class LoginActivity : AppCompatActivity() {
       val senha = binding.activityLoginSenha.text.toString()
       Log.i("LoginActivity", "onCreate: $usuario - $senha")
       lifecycleScope.launch {
-        usuarioDao.autentica(usuario, senha)?.let {
-          vaiPara(ListaProdutosActivity::class.java)
+        usuarioDao.autentica(usuario, senha)?.let { usuario ->
+          vaiPara(ListaProdutosActivity::class.java) {
+            putExtra("CHAVE_USUARIO_ID", usuario.id)
+          }
         } ?: Toast.makeText(
           this@LoginActivity,
           "Falha na autenticação",
