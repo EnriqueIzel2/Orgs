@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orgs.R
@@ -58,6 +60,19 @@ class ListaProdutosActivity : AppCompatActivity() {
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
     menuInflater.inflate(R.menu.menu_lista_produtos, menu)
     return super.onCreateOptionsMenu(menu)
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    when (item.itemId) {
+      R.id.menu_lista_produtos_sair_app -> {
+        lifecycleScope.launch {
+          dataStore.edit { preferences ->
+            preferences.remove(usuarioLogadoPreferences)
+          }
+        }
+      }
+    }
+    return super.onOptionsItemSelected(item)
   }
 
   private fun vaiParaLogin() {
