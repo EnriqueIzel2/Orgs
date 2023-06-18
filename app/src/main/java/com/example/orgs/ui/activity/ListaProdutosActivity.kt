@@ -3,9 +3,11 @@ package com.example.orgs.ui.activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.example.orgs.R
 import com.example.orgs.database.AppDatabase
 import com.example.orgs.databinding.ActivityListaProdutosBinding
 import com.example.orgs.extensions.vaiPara
@@ -51,6 +53,11 @@ class ListaProdutosActivity : AppCompatActivity() {
         } ?: vaiParaLogin()
       }
     }
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.menu_lista_produtos, menu)
+    return super.onCreateOptionsMenu(menu)
   }
 
   private fun vaiParaLogin() {
