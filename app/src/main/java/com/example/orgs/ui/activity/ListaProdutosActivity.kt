@@ -8,11 +8,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orgs.database.AppDatabase
 import com.example.orgs.databinding.ActivityListaProdutosBinding
+import com.example.orgs.extensions.vaiPara
 import com.example.orgs.preferences.dataStore
 import com.example.orgs.preferences.usuarioLogadoPreferences
 import com.example.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ListaProdutosActivity : AppCompatActivity() {
@@ -48,9 +48,14 @@ class ListaProdutosActivity : AppCompatActivity() {
           usuarioDao.buscaPorID(usuarioID).collect {
             Log.i("Lista Produtos", "onCreate: $it")
           }
-        }
+        } ?: vaiParaLogin()
       }
     }
+  }
+
+  private fun vaiParaLogin() {
+    vaiPara(LoginActivity::class.java)
+    finish()
   }
 
   private fun configuraFab() {
