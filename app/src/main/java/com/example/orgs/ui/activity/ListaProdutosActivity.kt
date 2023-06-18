@@ -47,12 +47,16 @@ class ListaProdutosActivity : AppCompatActivity() {
         }
       }
 
-      dataStore.data.collect { preferences ->
-        preferences[usuarioLogadoPreferences]?.let { usuarioID ->
-          usuarioDao.buscaPorID(usuarioID).collect {
-            Log.i("Lista Produtos", "onCreate: $it")
-          }
-        } ?: vaiParaLogin()
+      launch {
+        dataStore.data.collect { preferences ->
+          preferences[usuarioLogadoPreferences]?.let { usuarioID ->
+            launch {
+              usuarioDao.buscaPorID(usuarioID).collect {
+                Log.i("Lista Produtos", "onCreate: $it")
+              }
+            }
+          } ?: vaiParaLogin()
+        }
       }
     }
   }
