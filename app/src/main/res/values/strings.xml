@@ -15,4 +15,7 @@
     <string name="login_textInput_senha_hint">Senha</string>
     <string name="login_buttonEntrar_text">Entrar</string>
     <string name="login_buttonCadastrar_text">cadastrar usuário</string>
+
+    <!--  Menu Lista Produtos -->
+    <string name="menu_lista_produtos_ic_sair_do_app">Sair do App</string>
 </resources>
