@@ -16,20 +16,21 @@
         tools:targetApi="31">
         <activity
             android:name=".ui.activity.LoginActivity"
-            android:exported="true"
-            android:theme="@style/Theme.Orgs.NoActionBar">
+            android:theme="@style/Theme.Orgs.NoActionBar" />
+        <activity
+            android:name=".ui.activity.FormularioCadastroUsuarioActivity"
+            android:label="Cadastrar Usuário" />
+        <activity android:name=".ui.activity.DetalhesProdutoActivity" />
+        <activity android:name=".ui.activity.ListaProdutosActivity" />
+        <activity
+            android:name=".ui.activity.FormularioProdutoActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.activity.FormularioCadastroUsuarioActivity"
-            android:label="Cadastrar Usuário" />
-        <activity android:name=".ui.activity.DetalhesProdutoActivity" />
-        <activity android:name=".ui.activity.ListaProdutosActivity" />
-        <activity android:name=".ui.activity.FormularioProdutoActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
