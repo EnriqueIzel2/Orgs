@@ -1,7 +1,6 @@
 package com.example.orgs.ui.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.edit
@@ -35,7 +34,6 @@ class LoginActivity : AppCompatActivity() {
     binding.activityLoginBotaoEntrar.setOnClickListener {
       val usuario = binding.activityLoginUsuario.text.toString()
       val senha = binding.activityLoginSenha.text.toString()
-      Log.i("LoginActivity", "onCreate: $usuario - $senha")
       autentica(usuario, senha)
     }
   }
