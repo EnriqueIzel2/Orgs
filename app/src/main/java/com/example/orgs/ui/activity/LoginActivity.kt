@@ -36,18 +36,22 @@ class LoginActivity : AppCompatActivity() {
       val usuario = binding.activityLoginUsuario.text.toString()
       val senha = binding.activityLoginSenha.text.toString()
       Log.i("LoginActivity", "onCreate: $usuario - $senha")
-      lifecycleScope.launch {
-        usuarioDao.autentica(usuario, senha)?.let { usuario ->
-          dataStore.edit { preferences ->
-            preferences[usuarioLogadoPreferences] = usuario.id
-          }
-          vaiPara(ListaProdutosActivity::class.java)
-        } ?: Toast.makeText(
-          this@LoginActivity,
-          "Falha na autenticação",
-          Toast.LENGTH_SHORT
-        ).show()
-      }
+      autentica(usuario, senha)
+    }
+  }
+
+  private fun autentica(usuario: String, senha: String) {
+    lifecycleScope.launch {
+      usuarioDao.autentica(usuario, senha)?.let { usuario ->
+        dataStore.edit { preferences ->
+          preferences[usuarioLogadoPreferences] = usuario.id
+        }
+        vaiPara(ListaProdutosActivity::class.java)
+      } ?: Toast.makeText(
+        this@LoginActivity,
+        "Falha na autenticação",
+        Toast.LENGTH_SHORT
+      ).show()
     }
   }
 
