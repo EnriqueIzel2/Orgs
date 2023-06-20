@@ -17,6 +17,7 @@ import com.example.orgs.preferences.dataStore
 import com.example.orgs.preferences.usuarioLogadoPreferences
 import com.example.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
 class ListaProdutosActivity : AppCompatActivity() {
@@ -42,22 +43,32 @@ class ListaProdutosActivity : AppCompatActivity() {
 
     lifecycleScope.launch {
       launch {
-        produtoDao.buscarTodos().collect { produtos ->
-          adapter.atualiza(produtos)
-        }
+        verificaUsuarioLogado()
       }
+    }
+  }
 
-      launch {
-        dataStore.data.collect { preferences ->
-          preferences[usuarioLogadoPreferences]?.let { usuarioID ->
-            launch {
-              usuarioDao.buscaPorID(usuarioID).collect {
-                Log.i("Lista Produtos", "onCreate: $it")
-              }
-            }
-          } ?: vaiParaLogin()
+  private suspend fun verificaUsuarioLogado() {
+    dataStore.data.collect { preferences ->
+      preferences[usuarioLogadoPreferences]?.let { usuarioID ->
+        buscaUsuario(usuarioID)
+      } ?: vaiParaLogin()
+    }
+  }
+
+  private fun buscaUsuario(usuarioID: String) {
+    lifecycleScope.launch {
+      usuarioDao.buscaPorID(usuarioID).firstOrNull()?.let {
+        launch {
+          buscaProdutosUsuario()
         }
       }
+    }
+  }
+
+  private suspend fun buscaProdutosUsuario() {
+    produtoDao.buscarTodos().collect { produtos ->
+      adapter.atualiza(produtos)
     }
   }
 
