@@ -1,12 +1,12 @@
 package com.example.orgs.ui.activity
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.lifecycleScope
 import com.example.orgs.database.AppDatabase
 import com.example.orgs.databinding.ActivityLoginBinding
+import com.example.orgs.extensions.toast
 import com.example.orgs.extensions.vaiPara
 import com.example.orgs.preferences.dataStore
 import com.example.orgs.preferences.usuarioLogadoPreferences
@@ -45,11 +45,7 @@ class LoginActivity : AppCompatActivity() {
           preferences[usuarioLogadoPreferences] = usuario.id
         }
         vaiPara(ListaProdutosActivity::class.java)
-      } ?: Toast.makeText(
-        this@LoginActivity,
-        "Falha na autenticação",
-        Toast.LENGTH_SHORT
-      ).show()
+      } ?: toast("Falha na autenticação")
     }
   }
 
