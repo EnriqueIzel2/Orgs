@@ -81,13 +81,17 @@ class ListaProdutosActivity : AppCompatActivity() {
     when (item.itemId) {
       R.id.menu_lista_produtos_sair_app -> {
         lifecycleScope.launch {
-          dataStore.edit { preferences ->
-            preferences.remove(usuarioLogadoPreferences)
-          }
+          deslogaUsuario()
         }
       }
     }
     return super.onOptionsItemSelected(item)
+  }
+
+  private suspend fun deslogaUsuario() {
+    dataStore.edit { preferences ->
+      preferences.remove(usuarioLogadoPreferences)
+    }
   }
 
   private fun vaiParaLogin() {
