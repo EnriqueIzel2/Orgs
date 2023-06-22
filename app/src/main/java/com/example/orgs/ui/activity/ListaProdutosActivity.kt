@@ -5,22 +5,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
-import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orgs.R
 import com.example.orgs.database.AppDatabase
 import com.example.orgs.databinding.ActivityListaProdutosBinding
-import com.example.orgs.extensions.vaiPara
-import com.example.orgs.preferences.dataStore
-import com.example.orgs.preferences.usuarioLogadoPreferences
 import com.example.orgs.ui.recyclerview.adapter.ListaProdutosAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 
-class ListaProdutosActivity : AppCompatActivity() {
+class ListaProdutosActivity : UsuarioBaseActivity() {
   private val adapter = ListaProdutosAdapter(context = this)
   private val binding by lazy {
     ActivityListaProdutosBinding.inflate(layoutInflater)
@@ -28,10 +23,6 @@ class ListaProdutosActivity : AppCompatActivity() {
   private val produtoDao by lazy {
     val db = AppDatabase.instancia(this)
     db.produtoDao()
-  }
-
-  private val usuarioDao by lazy {
-    AppDatabase.instancia(this).usuarioDao()
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,25 +34,11 @@ class ListaProdutosActivity : AppCompatActivity() {
 
     lifecycleScope.launch {
       launch {
-        verificaUsuarioLogado()
-      }
-    }
-  }
-
-  private suspend fun verificaUsuarioLogado() {
-    dataStore.data.collect { preferences ->
-      preferences[usuarioLogadoPreferences]?.let { usuarioID ->
-        buscaUsuario(usuarioID)
-      } ?: vaiParaLogin()
-    }
-  }
-
-  private fun buscaUsuario(usuarioID: String) {
-    lifecycleScope.launch {
-      usuarioDao.buscaPorID(usuarioID).firstOrNull()?.let {
-        launch {
-          buscaProdutosUsuario()
-        }
+        usuario
+          .filterNotNull()
+          .collect {
+            buscaProdutosUsuario()
+          }
       }
     }
   }
@@ -86,17 +63,6 @@ class ListaProdutosActivity : AppCompatActivity() {
       }
     }
     return super.onOptionsItemSelected(item)
-  }
-
-  private suspend fun deslogaUsuario() {
-    dataStore.edit { preferences ->
-      preferences.remove(usuarioLogadoPreferences)
-    }
-  }
-
-  private fun vaiParaLogin() {
-    vaiPara(LoginActivity::class.java)
-    finish()
   }
 
   private fun configuraFab() {
