@@ -74,15 +74,17 @@ class FormularioProdutoActivity : UsuarioBaseActivity() {
     val botaoSalvar = binding.buttonSalvar
 
     botaoSalvar.setOnClickListener {
-      val produtoNovo = criaProduto()
       lifecycleScope.launch {
-        produtoDao.salva(produtoNovo)
-        finish()
+        usuario.value?.let { usuario ->
+          val produtoNovo = criaProduto(usuario.id)
+          produtoDao.salva(produtoNovo)
+          finish()
+        }
       }
     }
   }
 
-  private fun criaProduto(): Produto {
+  private fun criaProduto(usuarioID: String): Produto {
     val campoNome = binding.activityFormularioProdutoNome
     val campoDescricao = binding.activityFormularioProdutoDescricao
     val campoValor = binding.activityFormularioProdutoValor
@@ -101,7 +103,8 @@ class FormularioProdutoActivity : UsuarioBaseActivity() {
       nome = nome,
       descricao = descricao,
       valor = valor,
-      imagem = url
+      imagem = url,
+      usuarioID = usuarioID
     )
   }
 }
