@@ -1,4 +1,4 @@
-<h1 align="center">Top Movies</h1>
+<h1 align="center">Orgs</h1>
 
 <p align="center">
   Aplicativo sendo desenvolvido juntamente a formação Android da Alura.
